@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новость</title>
+</head>
+<body>
+    <div style="background-color: #888888">
+        <h2>{{news.title}}</h2>
+        <h3>{{ news.content }}</h3>
+        <p> Category: {{ news.category.name }}</p>
+        <p> Published: {{ news.created_at }}</p><br><br>
+
+        {% for i in comments %}
+            <div>
+                <p>{{ i.content}}</p>
+            </div>
+        {% endfor%}
+    </div>
+
+
+    <form action="{% url 'save_comment'%}" method="POST">
+        {% csrf_token %}
+        <label for="content">Content</label>
+        <textarea id="content" name="content"></textarea><br>
+
+        <input type="hidden" name="news_id" value="{{ news.id}}">
+        <input type="submit" value="Create">
+    </form>
+</body>
+</html>
